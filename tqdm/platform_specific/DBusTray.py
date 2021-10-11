@@ -7,10 +7,10 @@ try:
 
     class DBusProgressReporterBaseMeta(IProgressReporter.__class__):
         def __new__(cls, className, parents, attrs, *args, **kwargs):
-            if parents:
-                parentsMethodsNames = getattr(parents[0], "methodsNames", ())
-            else:
-                parentsMethodsNames = ()
+            parentsMethodsNames = (
+                getattr(parents[0], "methodsNames", ()) if parents else ()
+            )
+
             attrs = type(attrs)(attrs)
             mns = attrs.get("methodsNames", ())
             slots = attrs.get("__slots__", None)
